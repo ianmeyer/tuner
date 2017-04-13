@@ -1,0 +1,5 @@
+/Users/ianmeyer/Github/FFTProject/app/.externalNativeBuild/cmake/debug/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/ianmeyer/Github/FFTProject/app/.externalNativeBuild/cmake/debug/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/Users/ianmeyer/Github/FFTProject/app/.externalNativeBuild/cmake/debug/armeabi-v7a/src/main/cpp/native-lib/CMakeFiles/edit_cache.dir
+/Users/ianmeyer/Github/FFTProject/app/.externalNativeBuild/cmake/debug/armeabi-v7a/src/main/cpp/native-lib/CMakeFiles/rebuild_cache.dir
+/Users/ianmeyer/Github/FFTProject/app/.externalNativeBuild/cmake/debug/armeabi-v7a/src/main/cpp/native-lib/CMakeFiles/native-lib.dir

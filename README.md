@@ -1,2 +1,2 @@
-# tuner
+# Tuner
 App to identify musical notes streamed through the microphone
