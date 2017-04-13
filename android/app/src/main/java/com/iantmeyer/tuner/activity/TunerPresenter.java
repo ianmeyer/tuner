@@ -26,7 +26,7 @@ class TunerPresenter implements TunerMvp.Presenter {
         mView = view;
         mNoteHelper = new NoteHelper(mReferenceFreq);
         mNoteHelper.setFrequencyRange(125d, 2150d);
-        mNoteHelper.setDecibleThreshold(10);
+        mNoteHelper.setDecibleThreshold(-100);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.iantmeyer.tuner.audio.process;
 
-import com.iantmeyer.tuner.audio.fft.Complex;
-import com.iantmeyer.tuner.audio.fft.ComplexFFT;
+import com.iantmeyer.tuner.audio.fft.MyFFT;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -11,35 +10,45 @@ public class FrequencyProcessor implements AudioProcessor {
 
     private int mSampleRate;
 
-    // private MyFFT mFft;
-    private ComplexFFT mFft;
+     private MyFFT mFft;
+//    private ComplexFFT mFft;
 
-    private Complex[] mData;
+//    private Complex[] mData;
+
+    private Callback mCallback;
 
     public FrequencyProcessor(int sampleRateHz, int bufferSize) {
         mSampleRate = sampleRateHz;
-//        mFft = new MyFFT(bufferSize);
-        mFft = new ComplexFFT(bufferSize);
-        mData = new Complex[bufferSize];
-        for (int idx = 0; idx < bufferSize; idx++) {
-            mData[idx] = new Complex();
-        }
+        mFft = new MyFFT(bufferSize);
+//        mFft = new ComplexFFT(bufferSize);
+//        mData = new Complex[bufferSize];
+//        for (int idx = 0; idx < bufferSize; idx++) {
+//            mData[idx] = new Complex();
+//        }
+    }
+
+    interface Callback {
+        void frequencyFound(double frequencyHz, double decibels);
+    }
+
+    void setCallback(Callback callback) {
+        mCallback = callback;
     }
 
     @Override
     public void process(double[] audioData) {
-//        double[][] data = new double[2][];
-//        data[0] = audioData;
-//        data[1] = new double[audioData.length];
-//        Complex[] data = Complex.fromArray(audioData);
-        Complex.fill(mData, audioData);
-        mFft.fft(mData);
+        double[][] data = new double[2][];
+        data[0] = audioData;
+        data[1] = new double[audioData.length];
+        mFft.fft(data);
+//        Complex.fill(mData, audioData);
+//        mFft.fft(mData);
         double currentMag;
         double max = 0;
         int maxIdx = -1;
         for (int idx = 0; idx < audioData.length; idx++) {
-//            currentMag = Math.sqrt(Math.pow(data[0][idx], 2) + Math.pow(data[1][idx], 2));
-            currentMag = mData[idx].abs();
+            currentMag = Math.sqrt(Math.pow(data[0][idx], 2) + Math.pow(data[1][idx], 2));
+//            currentMag = mData[idx].abs();
             if (currentMag > max) {
                 max = currentMag;
                 maxIdx = idx;
@@ -50,7 +59,11 @@ public class FrequencyProcessor implements AudioProcessor {
             return;
         }
         double frequencyHz = maxIdx * mSampleRate / audioData.length;
-        EventBus.getDefault().post(new FrequencyUpdateEvent(frequencyHz, decibels));
+        if (mCallback == null) {
+            EventBus.getDefault().post(new FrequencyUpdateEvent(frequencyHz, decibels));
+        } else {
+            mCallback.frequencyFound(frequencyHz, decibels);
+        }
     }
 
     public static class FrequencyUpdateEvent {

@@ -1,7 +1,5 @@
 package com.iantmeyer.tuner.audio.music;
 
-import com.iantmeyer.tuner.audio.music.NoteHelper;
-
 import junit.framework.Assert;
 
 import org.junit.After;
@@ -51,7 +49,7 @@ public class NoteHelperTest {
 
         NoteHelper noteHelper = new NoteHelper(440);
         for (int idx = 0; idx < notes.length; idx++) {
-            NoteHelper.Note note = noteHelper.getNote(freqs[idx]);
+            NoteHelper.Note note = noteHelper.getNote(freqs[idx], 1d);
             // System.out.print("Freq=" + freqs[idx] + ", Note=" + note.note + "\n");
             Assert.assertEquals(notes[idx], note.note);
             Assert.assertEquals(noteIndices[idx], note.noteIdx);
