@@ -2,14 +2,6 @@ package com.iantmeyer.tuner.audio.fft;
 
 public class ComplexFFT implements FFT {
 
-    /*
-        https://web.archive.org/web/20150922044939/http://www.wikijava.org/wiki/The_Fast_Fourier_Transform_in_Java_%28part_1%29
-     */
-
-    /*
-        http://www.drdobbs.com/cpp/a-simple-and-efficient-fft-implementatio/199500857
-     */
-
     private static final String TAG = "ComplexFFT";
 
     private final int mSize;
